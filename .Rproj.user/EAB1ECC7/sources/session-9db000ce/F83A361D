@@ -1,0 +1,26 @@
+{
+    "id": "F83A361D",
+    "path": "~/Documents/rshiny_test/run.R",
+    "project_path": "run.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1702508176267.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "9,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1702589818,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1702589818464,
+    "read_only": false,
+    "read_only_alternatives": []
+}
