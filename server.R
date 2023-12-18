@@ -1,6 +1,3 @@
-library(shiny)
-source("~/Documents/rshiny_test/figure_functions_4.R")
-
 # Define server logic required to draw a histogram ----
 server = function(input, output) {
   observeEvent(input$folders,

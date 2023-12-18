@@ -1,9 +1,8 @@
 library(shiny)
-source("~/Documents/rshiny_test/ui.R")
-source("~/Documents/rshiny_test/server.R")
+source("ui.R")
+source("server.R")
 
 # Create Shiny app ----
-options(shiny.host = '0.0.0.0')
-options(shiny.port = 5050)
+# options(shiny.host = '0.0.0.0')
+# options(shiny.port = 5050)
 shinyApp(ui = ui, server = server)
-
