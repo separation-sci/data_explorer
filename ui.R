@@ -46,7 +46,6 @@ ui <- fluidPage(
       width = 6,
       wellPanel(plotOutput(outputId = "graphs"),
                 position = c("right")),
-      # tableOutput(outputId = "meta_data"),
       wellPanel(
         sliderInput(
           inputId = "x_axis",
@@ -81,7 +80,6 @@ ui <- fluidPage(
   fluidRow(wellPanel(
     p(strong("Meta data:"),
       textOutput("log"),
-      tableOutput("metadata"))
+      dataTableOutput("metadata"))
   ))
 )
-

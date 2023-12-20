@@ -10,8 +10,6 @@ server = function(input, output) {
                  )
                })
   
-  
-  
   output$graphs = renderPlot({
     plot_data = 0
     plot_data = raw_data[basename(raw_data$flnm) %in% input$files, ]
@@ -27,9 +25,8 @@ server = function(input, output) {
     )
   })
   
-  output$metadata = renderTable({
-    metadata_display = meta_data[basename(meta_data$flnm) %in% input$files, ] %>%
-      .[, c(3, 4, 7, 14)]
+  output$metadata = renderDataTable({
+    metadata_display = meta_data[basename(meta_data$flnm) %in% input$files, ]
     metadata_display
   })
   
