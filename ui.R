@@ -24,7 +24,7 @@ meta_data_for_selection = meta_data$flnm %>%
 colnames(meta_data_for_selection) = c("folder", "file")
 
 # UI ----------------------------------------------------------------------
-ui <- fluidPage(
+fluidPage(
   titlePanel("Data Explorer"),
   fluidRow(
     #left side panel
@@ -80,35 +80,47 @@ ui <- fluidPage(
   ),
   fluidRow(wellPanel(fluidRow(
     #main panel for parameters
-    column(
-      6,
-      p(strong("Parameters:")),
-      #TODO make the rank_list update when the "Add" button is clicked
-      rank_list(
-        text = "Drag to re-order",
-        labels = c("option1", "option2", "option3", "option4"),
-        input_id = "rank_list_basic"
-      )
-    ),
-    column(
-      6,
-      sliderInput(
-        inputId = "x_axis",
-        label = "x-axis",
-        value = c(0, 20),
-        min = 0,
-        max = 20,
-        width = "100%"
-      ),
-      sliderInput(
-        inputId = "y_axis",
-        label = "y-axis",
-        value = c(0, max(raw_data$RFU * 3) / 4),
-        min = 0,
-        max = max(raw_data$RFU),
-        width = "100%"
-      )
-    )
+    column(6,
+           p(strong("Parameters:")),
+           #TODO make the rank_list update when the "Add" button is clicked
+           uiOutput("selection_order_list")),
+    column(6,
+           fluidRow(
+             p(strong("x-axis range")),
+             column(6,
+                    numericInput(
+                      inputId = "x_axis_min",
+                      label = NULL,
+                      value = 0
+                    )),
+             column(
+               6,
+               numericInput(
+                 inputId = "x_axis_max",
+                 label = NULL,
+                 value = 20
+               )
+             )
+           ),
+           fluidRow(
+             p(strong("y-axis range")),
+             column(
+               6,
+               numericInput(
+                 inputId = "y_axis_min",
+                 label = NULL,
+                 value = 0
+               )
+             ),
+             column(
+               6,
+               numericInput(
+                 inputId = "y_axis_max",
+                 label = NULL,
+                 value = 1000
+               )
+             )
+           ))
   ))),
   #metadata for each currently plotted piece of data
   fluidRow(wellPanel(
