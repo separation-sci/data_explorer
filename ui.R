@@ -38,7 +38,7 @@ fluidPage(
         textInput(inputId = "text_filter",
                   label = "by name"),
         selectInput(
-          inputId = "folders",
+          inputId = "selected_folders",
           label = "by folder",
           choices = meta_data_for_selection$folder %>% unique(),
           multiple = TRUE,
@@ -49,7 +49,7 @@ fluidPage(
         hr(),
         #TODO: javascript code to hovertext the fullname.
         selectInput(
-          inputId = "files",
+          inputId = "selected_files",
           label = "Files to plot:",
           choices = NULL,
           multiple = TRUE,
@@ -72,55 +72,92 @@ fluidPage(
     #right side panel for saved graphs
     #TODO: edit saved graphs. remove saved graphs.
     #TODO: export data and graph code
-    column(width = 3,
-           wellPanel(
-             p(strong("Saved graphs:")),
-             actionButton("save", "Save Graph")
-           ))
+    column(
+      width = 3,
+      wellPanel(p(strong("Saved graphs:")),
+                downloadButton("save_plot", "Save graph params")),
+      textOutput(outputId = "debug_area")
+    )
   ),
   fluidRow(wellPanel(fluidRow(
     #main panel for parameters
     column(6,
-           p(strong("Parameters:")),
+           p(
+             strong("Parameters (note duplicates are filtered out):")
+           ),
            #TODO make the rank_list update when the "Add" button is clicked
            uiOutput("selection_order_list")),
-    column(6,
-           fluidRow(
-             p(strong("x-axis range")),
-             column(6,
-                    numericInput(
-                      inputId = "x_axis_min",
-                      label = NULL,
-                      value = 0
-                    )),
-             column(
-               6,
+    column(
+      6,
+      fluidRow(p(strong(
+        "x-axis range (min, max, stack)"
+      )),
+      column(
+        12,
+        sliderInput(
+          inputId = "x_axis_min_slide",
+          label = NULL,
+          value = c(0, 20),
+          min = 0,
+          max = 20
+        )
+      )),
+      fluidRow(
+        column(4,
+               numericInput(
+                 inputId = "x_axis_min",
+                 label = NULL,
+                 value = 0
+               )),
+        column(4,
                numericInput(
                  inputId = "x_axis_max",
                  label = NULL,
                  value = 20
-               )
-             )
-           ),
-           fluidRow(
-             p(strong("y-axis range")),
-             column(
-               6,
+               )),
+        column(4,
+               numericInput(
+                 inputId = "x_axis_stack",
+                 label = NULL,
+                 value = 0
+               ))
+      ),
+      fluidRow(p(strong(
+        "y-axis range (min, max, stack)"
+      )),
+      column(
+        12,
+        sliderInput(
+          inputId = "y_axis_min_slide",
+          label = NULL,
+          value = c(0, 1000),
+          #this should change with the plot
+          min = 0,
+          max = max(raw_data$RFU)
+        )
+      )),
+      fluidRow(
+        column(4,
                numericInput(
                  inputId = "y_axis_min",
                  label = NULL,
                  value = 0
-               )
-             ),
-             column(
-               6,
+               ))
+        ,
+        column(4,
                numericInput(
                  inputId = "y_axis_max",
                  label = NULL,
-                 value = 1000
-               )
-             )
-           ))
+                 value = 100
+               )),
+        column(4,
+               numericInput(
+                 inputId = "y_axis_stack",
+                 label = NULL,
+                 value = 0
+               ))
+      )
+    )
   ))),
   #metadata for each currently plotted piece of data
   fluidRow(wellPanel(
